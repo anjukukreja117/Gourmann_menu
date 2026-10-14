@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmann - Gut-Smart Choice, No Afterthoughts</title>
+    <style>
+        :root {
+            --primary-green: #556B2F;
+            --light-green: #F4F7EE;
+            --accent-green: #6B8E23;
+            --dark-text: #2C3E2D;
+            --white: #FFFFFF;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-green);
+            color: var(--dark-text);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 120px;
+        }
+        header {
+            background-color: var(--primary-green);
+            color: var(--white);
+            text-align: center;
+            padding: 20px 10px;
+        }
+        header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
+        header p { margin: 5px 0 0; font-size: 0.9rem; font-style: italic; opacity: 0.9; }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 15px; }
+        
+        .section-title {
+            color: var(--primary-green);
+            border-bottom: 2px solid var(--primary-green);
+            padding-bottom: 5px;
+            margin-top: 25px;
+            font-size: 1.3rem;
+        }
+        
+        .menu-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .item-info { flex: 1; min-width: 200px; }
+        .item-name { font-weight: 600; font-size: 1rem; color: #333; }
+        .item-price { color: var(--primary-green); font-weight: bold; font-size: 0.95rem; margin-top: 3px; }
+        
+        .controls { display: flex; align-items: center; gap: 8px; }
+        .btn-qty {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-qty:active { background: var(--accent-green); }
+        .qty-display { font-weight: bold; width: 25px; text-align: center; }
+
+        .customization-box {
+            background: #fafbfc;
+            border: 1px dashed #cbd5e1;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .customization-box h4 { margin: 0 0 8px 0; color: var(--primary-green); font-size: 0.95rem; }
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 6px; }
+        .option-label { font-size: 0.85rem; display: flex; align-items: center; gap: 5px; cursor: pointer; }
+
+        /* Floating Cart Footer */
+        .cart-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 2px solid #e2e8f0;
+            padding: 12px 20px;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .cart-summary { font-size: 0.95rem; font-weight: 600; }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .btn-whatsapp:hover { background-color: #22bf5b; }
+
+        .note-box {
+            background: #fff;
+            border-left: 4px solid var(--primary-green);
+            padding: 12px;
+            margin-top: 30px;
+            font-size: 0.85rem;
+            border-radius: 0 8px 8px 0;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>GOURMANN</h1>
+    <p>GUT-SMART CHOICE, NO AFTERTHOUGHTS</p>
+</header>
+
+<div class="container">
+
+    <!-- Breakfast Bowls -->
+    <div class="section-title">🥣 Breakfast Bowls (Overnight Oats)</div>
+    <div class="menu-card">
+        <div class="item-info"><div class="item-name">Classic Vanilla Almond</div><div class="item-price">₹170/-</div></div>
+        <div class="controls">
+            <button class="btn-qty" onclick="updateQty('Classic Vanilla Almond', 170, -1)">-</button>
+            <span class="qty-display" id="qty-Classic Vanilla Almond">0</span>
+            <button class="btn-qty" onclick="updateQty('Classic Vanilla Almond', 170, 1)">+</button>
+        </div>
+    </div>
+    <div class="menu-card">
+        <div class="item-info"><div class="item-name">Chocolate Almond</div><div class="item-price">₹180/-</div></div>
+        <div class="controls">
+            <button class="btn-qty" onclick="updateQty('Chocolate Almond', 180, -1)">-</button>
+            <span class="qty-display" id="qty-Chocolate Almond">0</span>
+            <button class="btn-qty" onclick="updateQty('Chocolate Almond', 180, 1)">+</button>
+        </div>
+    </div>
+
+    <!-- Protein Salad Bowls -->
+    <div class="section-title">🥗 Protein Salad Bowls</div>
+    <div id="salad-items"></div>
+
+    <!-- Burrito Bowls -->
+    <div class="section-title">🌯 Burrito Bowls (Mexican Rice Bowl)</div>
+    <div id="burrito-items"></div>
+
+    <!-- Wraps -->
+    <div class="section-title">wrap Wraps (Multigrain Base)</div>
+    <div id="wrap-items"></div>
+
+    <!-- Customizations: Add-ons & Sauces -->
+    <div class="customization-box">
+        <h4>✨ Extras & Add-ons</h4>
+        <div style="margin-bottom: 8px; font-size: 0.85rem;"><strong>Extra Base</strong> (+₹50):</div>
+        <div class="options-grid" id="extra-base-options"></div>
+        
+        <div style="margin: 10px 0 5px 0; font-size: 0.85rem;"><strong>Extras:</strong></div>
+        <div class="options-grid">
+            <label class="option-label"><input type="checkbox" class="addon-checkbox" data-name="Add Cheese" data-price="0" onchange="updateCart()"> Add Cheese (₹0)</label>
+        </div>
+
+        <div style="margin: 10px 0 5px 0; font-size: 0.85rem;"><strong>Additional Sauces / Dressings (₹10 each):</strong></div>
+        <div class="options-grid" id="sauce-options"></div>
+    </div>
+
+    <!-- Noodles & Pizza Bites -->
+    <div class="section-title">🍝 Whole Wheat Noodles & Healthy Pizza Bites</div>
+    <div class="menu-card">
+        <div class="item-info"><div class="item-name">Noodle Bowl</div><div class="item-price">₹170/-</div></div>
+        <div class="controls">
+            <button class="btn-qty" onclick="updateQty('Noodle Bowl', 170, -1)">-</button>
+            <span class="qty-display" id="qty-Noodle Bowl">0</span>
+            <button class="btn-qty" onclick="updateQty('Noodle Bowl', 170, 1)">+</button>
+        </div>
+    </div>
+    <div class="menu-card">
+        <div class="item-info"><div class="item-name">Healthy Pizza Bites (Mini Bites - 8 pcs)</div><div class="item-price">₹170/-</div></div>
+        <div class="controls">
+            <button class="btn-qty" onclick="updateQty('Healthy Pizza Bites', 170, -1)">-</button>
+            <span class="qty-display" id="qty-Healthy Pizza Bites">0</span>
+            <button class="btn-qty" onclick="updateQty('Healthy Pizza Bites', 170, 1)">+</button>
+        </div>
+    </div>
+
+    <!-- Sweet Indulgence -->
+    <div class="section-title">🍫 Sweet Indulgence</div>
+    <div class="menu-card">
+        <div class="item-info"><div class="item-name">Protein Bar</div><div class="item-price">₹150/-</div></div>
+        <div class="controls">
+            <button class="btn-qty" onclick="updateQty('Protein Bar', 150, -1)">-</button>
+            <span class="qty-display" id="qty-Protein Bar">0</span>
+            <button class="btn-qty" onclick="updateQty('Protein Bar', 150, 1)">+</button>
+        </div>
+    </div>
+    <div class="menu-card">
+        <div class="item-info"><div class="item-name">Chocolate Protein Bar</div><div class="item-price">₹170/-</div></div>
+        <div class="controls">
+            <button class="btn-qty" onclick="updateQty('Chocolate Protein Bar', 170, -1)">-</button>
+            <span class="qty-display" id="qty-Chocolate Protein Bar">0</span>
+            <button class="btn-qty" onclick="updateQty('Chocolate Protein Bar', 170, 1)">+</button>
+        </div>
+    </div>
+
+    <div class="note-box">
+        <strong>A Little Note Before You Order ❤️:</strong><br>
+        • Please plan ahead (8 hours in advance for fresh prep)[cite: 2].<br>
+        • Homemade with love in our home kitchen[cite: 2].<br>
+        • Order Details - Anjali | GOURMANN | Call/WhatsApp: 9834618609[cite: 2].
+    </div>
+
+</div>
+
+<!-- Floating Order Bar -->
+<div class="cart-footer">
+    <div class="cart-summary" id="cart-summary-text">Items: 0 | Total: ₹0</div>
+    <button class="btn-whatsapp" onclick="sendWhatsAppOrder()">💬 Order on WhatsApp</button>
+</div>
+
+<script>
+    const baseItems = [
+        "Red Kidney Beans", "Chickpeas", "Black Chickpeas", "Soya chunks", "Indian Cottage Cheese"
+    ];
+
+    const sauces = [
+        "Coriander Mint sauce", "Cashew sauce", "Chipotle sauce", "Creamy Makhana sauce", "Honey Chilli sauce"
+    ];
+
+    // Populate Dynamic Lists from PDF Data
+    function initMenu() {
+        // Salad Bowls
+        let saladHTML = "";
+        baseItems.forEach(item => {
+            saladHTML += `<div class="menu-card">
+                <div class="item-info"><div class="item-name">Salad Bowl (${item})</div><div class="item-price">₹170/-</div></div>
+                <div class="controls">
+                    <button class="btn-qty" onclick="updateQty('Salad Bowl (${item})', 170, -1)">-</button>
+                    <span class="qty-display" id="qty-Salad Bowl (${item})">0</span>
+                    <button class="btn-qty" onclick="updateQty('Salad Bowl (${item})', 170, 1)">+</button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('salad-items').innerHTML = saladHTML;
+
+        // Burrito Bowls
+        let burritoHTML = "";
+        baseItems.forEach(item => {
+            burritoHTML += `<div class="menu-card">
+                <div class="item-info"><div class="item-name">Burrito Bowl (${item})</div><div class="item-price">₹170/-</div></div>
+                <div class="controls">
+                    <button class="btn-qty" onclick="updateQty('Burrito Bowl (${item})', 170, -1)">-</button>
+                    <span class="qty-display" id="qty-Burrito Bowl (${item})">0</span>
+                    <button class="btn-qty" onclick="updateQty('Burrito Bowl (${item})', 170, 1)">+</button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('burrito-items').innerHTML = burritoHTML;
+
+        // Wraps (+ Aloo Tikki Patty included)
+        let wrapItemsList = ["Aloo Tikki Patty", ...baseItems];
+        let wrapHTML = "";
+        wrapItemsList.forEach(item => {
+            wrapHTML += `<div class="menu-card">
+                <div class="item-info"><div class="item-name">Wrap (${item})</div><div class="item-price">₹170/-</div></div>
+                <div class="controls">
+                    <button class="btn-qty" onclick="updateQty('Wrap (${item})', 170, -1)">-</button>
+                    <span class="qty-display" id="qty-Wrap (${item})">0</span>
+                    <button class="btn-qty" onclick="updateQty('Wrap (${item})', 170, 1)">+</button>
+                </div>
+            </div>`;
+        });
+        document.getElementById('wrap-items').innerHTML = wrapHTML;
+
+        // Extra Base options (+₹50)
+        let extraBaseHTML = "";
+        baseItems.forEach(item => {
+            extraBaseHTML += `<label class="option-label"><input type="checkbox" class="extra-base-checkbox" data-name="${item}" data-price="50" onchange="updateCart()"> ${item} (+₹50)</label>`;
+        });
+        document.getElementById('extra-base-options').innerHTML = extraBaseHTML;
+
+        // Sauces (₹10 each)
+        let sauceHTML = "";
+        sauces.forEach(sauce => {
+            sauceHTML += `<label class="option-label"><input type="checkbox" class="sauce-checkbox" data-name="${sauce}" data-price="10" onchange="updateCart()"> ${sauce} (₹10)</label>`;
+        });
+        document.getElementById('sauce-options').innerHTML = sauceHTML;
+    }
+
+    let cart = {};
+
+    function updateQty(itemName, price, change) {
+        if (!cart[itemName]) {
+            cart[itemName] = { price: price, qty: 0 };
+        }
+        cart[itemName].qty += change;
+        if (cart[itemName].qty <= 0) {
+            delete cart[itemName];
+            document.getElementById(`qty-${itemName}`).innerText = 0;
+        } else {
+            document.getElementById(`qty-${itemName}`).innerText = cart[itemName].qty;
+        }
+        updateCart();
+    }
+
+    function updateCart() {
+        let totalItems = 0;
+        let subtotal = 0;
+
+        for (let item in cart) {
+            totalItems += cart[item].qty;
+            subtotal += cart[item].qty * cart[item].price;
+        }
+
+        // Add extra bases
+        document.querySelectorAll('.extra-base-checkbox').forEach(cb => {
+            if (cb.checked) subtotal += 50 * (totalItems > 0 ? totalItems : 1); // Scales with order count or default to 1 unit
+        });
+
+        // Add sauces
+        document.querySelectorAll('.sauce-checkbox').forEach(cb => {
+            if (cb.checked) subtotal += 10;
+        });
+
+        document.getElementById('cart-summary-text').innerText = `Items: ${totalItems} | Total Amount: ₹${subtotal}/-`;
+    }
+
+    function sendWhatsAppOrder() {
+        let totalItems = 0;
+        for (let item in cart) {
+            totalItems += cart[item].qty;
+        }
+
+        if (totalItems === 0) {
+            alert("Please select at least one item from the menu before placing your order!");
+            return;
+        }
+
+        let message = "Hello GOURMANN! I would like to place an order:%0A%0A";
+        let subtotal = 0;
+
+        for (let item in cart) {
+            let itemTotal = cart[item].qty * cart[item].price;
+            subtotal += itemTotal;
+            message += `• ${item} x ${cart[item].qty} = ₹${itemTotal}%0A`;
+        }
+
+        // Selected Extra Bases
+        let extraBases = [];
+        document.querySelectorAll('.extra-base-checkbox').forEach(cb => {
+            if (cb.checked) extraBases.push(cb.getAttribute('data-name'));
+        });
+        if (extraBases.length > 0) {
+            let baseCost = 50 * (totalItems > 0 ? totalItems : 1);
+            subtotal += baseCost;
+            message += `%0A*Extra Protein Base:* ${extraBases.join(', ')} (+₹${baseCost})%0A`;
+        }
+
+        // Add cheese
+        document.querySelectorAll('.addon-checkbox').forEach(cb => {
+            if (cb.checked) {
+                message += `*Add-on:* ${cb.getAttribute('data-name')}%0A`;
+            }
+        });
+
+        // Selected Sauces
+        let selectedSauces = [];
+        document.querySelectorAll('.sauce-checkbox').forEach(cb => {
+            if (cb.checked) {
+                selectedSauces.push(cb.getAttribute('data-name'));
+                subtotal += 10;
+            }
+        });
+        if (selectedSauces.length > 0) {
+            message += `*Additional Sauces:* ${selectedSauces.join(', ')} (+₹${selectedSauces.length * 10})%0A`;
+        }
+
+        message += `%0A*Total Amount Payable:* ₹${subtotal}/-%0A%0APlease confirm my order!`;
+
+        let phoneNumber = "9834618609"; // Anjali | Gourmann[cite: 2]
+        let whatsappURL = `https://wa.me/91${phoneNumber}?text=${message}`;
+        window.open(whatsappURL, '_blank');
+    }
+
+    window.onload = initMenu;
+</script>
+
+</body>
+</html>
